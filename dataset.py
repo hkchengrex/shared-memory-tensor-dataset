@@ -44,13 +44,6 @@ class TorchSharedTensorDataset(TorchTensorDataset):
             print(f"Worker {local_rank} obtains a dataset of length="
                   f"{len(self)} from its local leader.")
 
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        return self.data[idx]
-
-
 
 def local_scatter_torch(array: Optional[List[Any]]):
     """

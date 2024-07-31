@@ -3,7 +3,7 @@
 ## Overview
 - This repository provides an example of reading from a single shared memory tensor from multiple processes (e.g., with DDP).
 - Useful for loading a large tensor (e.g., the entire dataset) to the CPU to speed up I/O without incurring Nx memory usage where N is the number of GPUs/processes
-- We use standard `torch.utils.data.Dataloader` which might make it easier for you to use this in your own code
+- We use the standard `torch.utils.data.Dataloader` which might make it easier for you to use this in your own code
 - Works with `torchrun`
 - Does not depend on `detectron2`
 
