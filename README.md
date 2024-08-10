@@ -23,7 +23,7 @@
 * Python >= 3.7
 * Linux
 * PyTorch >= 1.10
-* `python -m pip install psutil tabulate`
+* `pip install psutil tabulate tensordict`
 
 ## Acknowledgement
 
