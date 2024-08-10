@@ -8,7 +8,7 @@
 - Does not depend on `detectron2`
 
 ## Limitation
-- We did not test this script in the multi-node settings. It probably would not work.
+- We did not test this script in the multi-node setting. It probably would not work.
 
 ## Usage
 
