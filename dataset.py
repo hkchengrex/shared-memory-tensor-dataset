@@ -28,16 +28,17 @@ class TorchSharedTensorDataset(TorchTensorDataset):
             filename = self.tmp_file.name
             # immediately unlink the file; the processes should still have a reference
             os.unlink(filename)
+            meta_information = (filename, self.data.shape, self.data.dtype)
         else:
-            filename = None
+            meta_information = None
 
-        filename = local_scatter_torch(filename)
+        filename, data_shape, data_type = local_scatter_torch(meta_information)
 
         if is_rank0:
             self.data = MemoryMappedTensor.from_tensor(self.data, filename=filename, existsok=True)
         else:
-            self.data = MemoryMappedTensor.from_filename(filename=filename, dtype=torch.float32, 
-                    shape=(1024, 1024, 256, num_gbs))
+            self.data = MemoryMappedTensor.from_filename(filename=filename, dtype=data_type, 
+                    shape=data_shape)
 
         dist.barrier()
         
