@@ -15,22 +15,10 @@ world_size = int(os.environ['WORLD_SIZE'])
 
 logger = logging.getLogger(__name__)
 
-def local_broadcast_process_authkey():
-    if world_size == 1:
-        return
-    authkey = bytes(mp.current_process().authkey)
-    all_keys = [None for _ in  range(world_size)]
-    dist.all_gather_object(all_keys, authkey)
-    local_leader_key = all_keys[0]
-    if authkey != local_leader_key:
-        print('Overwriting local authkey...')
-        mp.current_process().authkey = local_leader_key
-
 
 def main():
     torch.cuda.set_device(local_rank)
     dist.init_process_group(backend='nccl')
-    local_broadcast_process_authkey()
 
     print(f"local_rank={local_rank}, world_size={world_size}")
 
